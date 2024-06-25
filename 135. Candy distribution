@@ -1,0 +1,36 @@
+class Solution {
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+
+        int[] L2R= new int[n];
+        int[] R2L = new int[n];
+
+        //initilize both the arrays
+
+        Arrays.fill(L2R,1);
+        Arrays.fill(R2L,1);
+
+        //FIRST PASS FOR COMPARING WITH RIGHT NEIGHBOUR
+
+        for(int i=1;i<n;i++){
+            if(ratings[i] > ratings[i-1]){
+                    L2R[i] = Math.max(L2R[i],L2R[i-1]+1);
+            }
+        }
+
+        // SECOND PASS FOR COMPARING WIYH LEFT NEIGHBOUR
+
+        for(int i= n-2;i>=0;i--){
+            if(ratings[i] > ratings[i+1]){
+                R2L[i] = Math.max(R2L[i],R2L[i+1]+1);
+            }
+        }
+        // Calculate the candies needed
+
+        int result = 0;
+        for(int i =0;i<n;i++){
+            result += Math.max(L2R[i],R2L[i]);
+        }
+        return result;
+    }
+}
