@@ -1,0 +1,26 @@
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        int n = points.length;
+        // sort the intervals based on their end points
+
+        Arrays.sort(points,Comparator.comparingInt(a ->a[1]));
+
+        int count = 1; // at least one count is needed initialy
+
+        int lastEndPoint =points[0][1]; //the end point of the first balloon
+
+        // iterate over the remaining ballons
+
+        for(int i=1;i<n;i++){
+            int currStartPoint=points[i][0]; // start point of the current balloon
+
+            //if the current balloon starts after the end of last balloon it means we need a new arrow
+
+            if(currStartPoint > lastEndPoint){
+                count++;    // increment the arrow count 
+                lastEndPoint=points[i][1]; // update the last end point of the current balloon's end point
+            }
+        }
+        return count;
+    }
+}
