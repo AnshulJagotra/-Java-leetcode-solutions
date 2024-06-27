@@ -3,21 +3,21 @@ class Solution {
        StringBuilder res = new StringBuilder();
        int startIndex = s.length()-1;
        while(startIndex>=0){
-        while(startIndex>=0 && s.charAt(startIndex)==' '){
+        while(startIndex>=0 && s.charAt(startIndex)==' '){     // check if there is space in staring of start index just ignore it//
             startIndex--;
         }if(startIndex<0){
             break;
         }
 
-        int endIndex = startIndex;
+        int endIndex = startIndex;   // make both the pointers at equal and then move startIndex++ //
 
         while(startIndex>=0 && s.charAt(startIndex) != ' '){
          startIndex--;
         }
-        if(res.length() ==0){
+        if(res.length() ==0){             //  if it is empty list just add ythe words//
          res.append(s.substring(startIndex+1,endIndex+1));
         }else{
-         res.append(" ");
+         res.append(" ");          // if it is not empty list then add a space and then and the word in the list;
          res.append(s.substring(startIndex+1,endIndex+1));
         }
     } 
