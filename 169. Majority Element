@@ -5,3 +5,26 @@ class Solution {
         return nums[n/2];
     }
 }
+
+
+approch 2 code and approch is similar to majority element2 problem (n/3)----------------------------------------------
+class Solution {
+    public int majorityElement(int[] nums) {
+        int n = nums.length;
+
+        Integer maj1 = null;
+        int count = 0;
+
+        for(int i=0;i<n;i++){
+            if(maj1 != null && nums[i] == maj1){
+                count++;
+            }else if(count == 0){
+                maj1 = nums[i];
+                count = 1;
+            }else{
+                count--;
+            }
+        }
+        return maj1;
+    }
+}
