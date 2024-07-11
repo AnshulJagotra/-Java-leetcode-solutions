@@ -1,0 +1,51 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        
+        if (nums == null || nums.length < 4) {
+            return ans; // Early return if nums length is less than 4
+        }
+        
+        Arrays.sort(nums); // Sort the array
+        
+        int n = nums.length;
+        
+        for (int i = 0; i < n - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue; // Skip duplicates for the first number
+            }
+            
+            for (int j = i + 1; j < n - 2; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue; // Skip duplicates for the second number
+                }
+                
+                int k = j + 1;
+                int l = n - 1;
+                
+                while (k < l) {
+                    long sum = (long) nums[i] + nums[j] + nums[k] + nums[l]; // Use long to handle large sums
+                    
+                    if (sum == target) {
+                        ans.add(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
+                        k++;
+                        l--;
+                        
+                        while (k < l && nums[k] == nums[k - 1]) k++; // Skip duplicates for the third number
+                        while (k < l && nums[l] == nums[l + 1]) l--; // Skip duplicates for the fourth number
+                    } else if (sum < target) {
+                        k++;
+                    } else {
+                        l--;
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+}
