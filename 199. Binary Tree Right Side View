@@ -1,0 +1,76 @@
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        if(root == null){
+            return new ArrayList<>();
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
+
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int n = queue.size();
+            TreeNode rightNode = null;
+
+            while(n-- > 0){
+                rightNode = queue.poll();
+
+                if(rightNode.left != null){
+                    queue.offer(rightNode.left);
+                }
+
+                if(rightNode.right != null){
+                    queue.offer(rightNode.right);
+                }
+            }
+            result.add(rightNode.val);
+        }
+        return result;
+    }
+}
+
+
+
+*****************************Left side view
+
+class Tree
+{
+    //Function to return list containing elements of left view of binary tree.
+    ArrayList<Integer> leftView(Node root)
+    {
+      // Your code here
+      
+      if(root == null){
+          return new ArrayList<>();
+      }
+      
+      Queue<Node> queue = new LinkedList<>();
+      ArrayList<Integer> result = new ArrayList<>();
+      
+      queue.offer(root);
+      
+      while(!queue.isEmpty()){
+          int n = queue.size();
+          Node leftNode = null;
+          
+          for(int i=0;i<n;i++){
+              leftNode = queue.poll();
+          
+          
+          if(i==0){
+              result.add(leftNode.data);
+          }
+          
+          if(leftNode.left != null){
+              queue.offer(leftNode.left);
+          }
+          
+          if(leftNode.right != null){
+              queue.offer(leftNode.right);
+          }
+      }
+      }
+      return result;
+    }
+}
