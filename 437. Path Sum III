@@ -1,0 +1,33 @@
+class Solution {
+    public int pathSum(TreeNode root, int targetSum) {
+        int count =0;
+        if(root == null){
+            return 0;
+        }
+
+        count += pathSumHelper(root,targetSum,0);
+
+        count += pathSum(root.left,targetSum);
+        count += pathSum(root.right,targetSum);
+
+        return count;
+    }
+
+    public int pathSumHelper(TreeNode root,int targetSum,long currentSum){
+        int count = 0;
+        if(root == null){
+            return 0;
+        }
+
+        currentSum += root.val;
+
+        if(currentSum == targetSum){
+            count++;
+        }
+
+        count += pathSumHelper(root.left,targetSum,currentSum);
+        count += pathSumHelper(root.right,targetSum,currentSum);
+
+        return count;
+    }
+}
