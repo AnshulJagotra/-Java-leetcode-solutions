@@ -1,0 +1,43 @@
+class Solution {
+    public boolean topologicalSortCheck(Map<Integer ,List<Integer>> adj,int n,int[] indegree){
+        Queue<Integer> que = new LinkedList<>();
+
+        int count =0;
+        
+        for(int i=0;i<n;i++){
+            if(indegree[i] == 0){
+                count++;
+                que.add(i);
+            }
+        }
+
+        while(!que.isEmpty()){
+            int u = que.poll();
+
+            for(int v : adj.getOrDefault(u,new ArrayList<>())){
+                indegree[v]--;
+
+                if(indegree[v] ==0){
+                    count++;
+                    que.add(v);
+                }
+            }
+        }
+
+        return count ==n;
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer,List<Integer>> adj = new HashMap<>();
+        int[] indegree = new int[numCourses];
+
+        for(int [] prereq : prerequisites){
+            int a= prereq[0];
+            int b =prereq[1];
+
+            adj.computeIfAbsent(b,k -> new ArrayList<>()).add(a);
+            indegree[a]++;
+        }
+
+        return topologicalSortCheck(adj,numCourses,indegree);
+    }
+}
