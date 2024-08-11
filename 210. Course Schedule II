@@ -1,0 +1,63 @@
+
+
+class Solution {
+    
+    public List<Integer> topologicalSortCheck(Map<Integer, List<Integer>> adj, int n, int[] indegree) {
+        Queue<Integer> que = new LinkedList<>();
+        int count = 0;
+        List<Integer> result = new ArrayList<>();
+        
+       
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) {
+                result.add(i);
+                count++;
+                que.add(i);
+            }
+        }
+        
+        while (!que.isEmpty()) {
+            int u = que.poll();
+            
+            for (int v : adj.getOrDefault(u, new ArrayList<>())) {
+                indegree[v]--;
+                
+                if (indegree[v] == 0) {
+                    result.add(v);
+                    count++;
+                    que.add(v);
+                }
+            }
+        }
+        
+       
+        if (count != n)
+            return new ArrayList<>();
+        
+        return result;
+    }
+    
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        int[] indegree = new int[numCourses];
+   
+        for (int[] prereq : prerequisites) {
+            int a = prereq[0];
+            int b = prereq[1];
+            
+            
+            adj.computeIfAbsent(b, k -> new ArrayList<>()).add(a);
+            indegree[a]++;
+        }
+        
+        
+        List<Integer> order = topologicalSortCheck(adj, numCourses, indegree);
+        
+        int[] result = new int[order.size()];
+        for (int i = 0; i < order.size(); i++) {
+            result[i] = order.get(i);
+        }
+        
+        return result;
+    }
+}
