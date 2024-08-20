@@ -1,0 +1,11 @@
+class Solution {
+    public int buyChoco(int[] prices, int money) {
+        Arrays.sort(prices);
+        int TotalPrice =0;
+        TotalPrice = prices[0]+prices[1];
+        if(TotalPrice > money){
+            return money;
+        }
+        return money-TotalPrice;
+    }
+}
