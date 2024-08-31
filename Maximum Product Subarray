@@ -1,0 +1,26 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        
+        int n = nums.length;
+        int maxProd = nums[0];
+        int minProd = nums[0];
+        int result = nums[0];
+        
+        for (int i = 1; i < n; i++) {
+            int curr = nums[i];
+            int tempMax = Math.max(Math.max(maxProd * curr, minProd * curr), curr);
+            minProd = Math.min(Math.min(maxProd * curr, minProd * curr), curr);
+            
+            maxProd = tempMax;
+            
+            if (maxProd > result) {
+                result = maxProd;
+            }
+        }
+        
+        return result;
+    }
+}
