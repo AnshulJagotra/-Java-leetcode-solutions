@@ -1,0 +1,36 @@
+class Solution {
+    public ListNode[] splitListToParts(ListNode head, int k) {
+       ListNode curr = head;
+       int L = 0;
+       while(curr != null){
+        L++;
+        curr = curr.next;
+       } 
+
+       int eachbucketNode = L/k;
+       int extraNodes = L%k;
+
+       ListNode[] result = new ListNode[k];
+
+       curr = head;
+       ListNode prev = null;
+
+       for(int i=0;curr != null && i<k;i++){
+        result[i] = curr;
+
+        for(int count=1;count<= L/k + (extraNodes>0?1:0);count++){
+            prev = curr;
+            curr = prev.next;
+        }
+        if(prev != null){
+            prev.next = null;
+        }
+
+        extraNodes--;
+       }
+
+       return result;
+
+    }
+}
+
