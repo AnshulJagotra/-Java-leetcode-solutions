@@ -1,0 +1,40 @@
+
+class Solution {
+    private int n;
+    private int[][] t;
+
+    public int lis(int[] nums, int prevIdx, int curIdx){
+        if(curIdx == n){
+            return 0;
+        }
+
+        if(prevIdx != -1 && t[prevIdx][curIdx] != -1){
+            return t[prevIdx][curIdx];
+        }
+
+        int taken =0;
+
+        if(prevIdx == -1 || nums[curIdx] > nums[prevIdx]){
+            taken = 1 + lis(nums,curIdx,curIdx+1);
+        }
+
+        int notTaken = lis(nums,prevIdx,curIdx+1);
+
+        if(prevIdx != -1){
+            t[prevIdx][curIdx] =Math.max(taken,notTaken);
+        }
+
+        return Math.max(taken,notTaken);
+    }
+    public int lengthOfLIS(int[] nums) {
+        t = new int[2501][2501];
+        for(int[] row: t){
+            Arrays.fill(row,-1);
+        }
+
+        n = nums.length;
+
+        return lis(nums,-1,0);
+    }
+} 
+
